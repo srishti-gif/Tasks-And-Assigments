@@ -42,7 +42,7 @@ class BookService {
     this.writeBooksToFile(books);
     return deletedBook;
   }
-  
+
   writeBooksToFile(data) {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
   }

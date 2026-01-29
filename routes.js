@@ -1,5 +1,6 @@
 const express = require("express");
 const BookService = require("./servies");
+const { loadAllhtml, loadhtmlById } = require("./loadhtml");
 
 const router = express.Router();
 const bookService = new BookService();
@@ -7,18 +8,19 @@ const bookService = new BookService();
 // GET all books
 router.get("/", (req, res) => {
   const books = bookService.getAllBooks();
-  res.json(books);
+  res.type("html").send(loadAllhtml(books));
 });
 
 // GET book by id
 router.get("/:id", (req, res) => {
   const book = bookService.getBookById(Number(req.params.id));
+  console.log(req.params.id);
 
   if (!book) {
     return res.status(404).json({ message: "Book not found" });
   }
 
-  res.json(book);
+  res.type("html").send(loadhtmlById(book));
 });
 
 // ADD book
